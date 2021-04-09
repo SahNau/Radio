@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
+    // создали объект
+    Radio radio = new Radio();
 
     @Test
     public void createRadio() {
-        Radio radio = new Radio();
         String expected = "Радиоман";
         assertNull(radio.getName());
         radio.setName(expected);
@@ -18,8 +19,6 @@ class RadioTest {
     @Test
     // тест переключения канала
     public void shouldChangeChanel() {
-        // создали объект
-        Radio radio = new Radio();
         // добавим проверку текущего канала, что он 0;
         assertEquals(0, radio.getCurrentRadioChanel());
         // присвоим наши значение;
@@ -31,26 +30,24 @@ class RadioTest {
     @Test
     // тест переключения канала вперёд
     public void nextChanel() {
-        Radio radio = new Radio();
         radio.setCurrentRadioChanel(4);
         radio.pressNextChanel();
-        assertEquals(5,radio.getCurrentRadioChanel());
+        assertEquals(5, radio.getCurrentRadioChanel());
     }
 
     @Test
     // тест переключения канала назад
     public void backChanel() {
-        Radio radio = new Radio();
         radio.setCurrentRadioChanel(4);
         radio.pressBackChanel();
-        assertEquals(3,radio.getCurrentRadioChanel());
+        assertEquals(3, radio.getCurrentRadioChanel());
     }
 
     @Test
     // тест перехода на канал вперёд при лимите
     public void overLimitChanel() {
-        Radio radio = new Radio();
-        radio.setCurrentRadioChanel(9);
+        Radio radio = new Radio(10, 100);
+        radio.setCurrentRadioChanel(10);
         radio.pressNextChanel();
         assertEquals(0, radio.getCurrentRadioChanel());
     }
@@ -58,16 +55,15 @@ class RadioTest {
     @Test
     // тест перехода на предыдущий канал при лимите
     public void underLimitChanel() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(10, 100);
         radio.setCurrentRadioChanel(0);
         radio.pressBackChanel();
-        assertEquals(9, radio.getCurrentRadioChanel());
+        assertEquals(10, radio.getCurrentRadioChanel());
     }
 
     @Test
     // тест переключения на канал выше лимита
     public void overInitialChanel() {
-        Radio radio = new Radio();
         radio.setCurrentRadioChanel(13);
         radio.getMaxRadioChanel();
         assertEquals(0, radio.getCurrentRadioChanel());
@@ -76,7 +72,6 @@ class RadioTest {
     @Test
 // тест переключения на канал ниже лимита
     public void underInitialChanel() {
-        Radio radio = new Radio();
         radio.setCurrentRadioChanel(-3);
         radio.getMinRadioChanel();
         assertEquals(0, radio.getCurrentRadioChanel());
@@ -86,15 +81,14 @@ class RadioTest {
     @Test
 // тест перехода на громкость выше
     public void maxVolume() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(10, 100);
         radio.setCurrentVolume(13);
         radio.getMaxVolume();
-        assertEquals(10, radio.getMaxVolume());
+        assertEquals(100, radio.getMaxVolume());
     }
 
     @Test
     public void minVolume() {
-        Radio radio = new Radio();
         radio.setCurrentVolume(-11);
         radio.getMinVolume();
         assertEquals(0, radio.getMinVolume());
@@ -103,7 +97,6 @@ class RadioTest {
 
     @Test
     public void plusVolume() {
-        Radio radio = new Radio();
         radio.setCurrentVolume(7);
         radio.pressPlusVolume();
         assertEquals(8, radio.getCurrentVolume());
@@ -111,9 +104,29 @@ class RadioTest {
 
     @Test
     public void minusVolume() {
-        Radio radio = new Radio();
         radio.setCurrentVolume(7);
         radio.pressMinusVolume();
         assertEquals(6, radio.getCurrentVolume());
     }
+
+    // Если уровень громкости звука достиг максимального значения,
+    // то дальнейшее нажатие на + не должно ни к чему приводить
+    @Test
+    public void overInitialVolume() {
+        Radio radio = new Radio(10, 100);
+        radio.setCurrentVolume(100);
+        radio.pressPlusVolume();
+        assertEquals(100, radio.getCurrentVolume());
+    }
+
+    // Если уровень громкости звука достиг минимального значения,
+// то дальнейшее нажатие на - не должно ни к чему приводить
+    @Test
+    public void underInitialVolume() {
+        Radio radio = new Radio(10, 100);
+        radio.setCurrentVolume(0);
+        radio.getMinVolume();
+        assertEquals(0, radio.getCurrentVolume());
+    }
 }
+
