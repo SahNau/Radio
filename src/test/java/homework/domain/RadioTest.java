@@ -20,7 +20,7 @@ class RadioTest {
     @Test
     // тест переключения канала
     public void shouldChangeChanel() {
-        Radio radio = new Radio("Radio", 0, 10,0,0,100,0,true );
+        Radio radio = new Radio("Radio", 0, 10, 0, 0, 100, 0, true);
         // присвоим наши значение;
         radio.setCurrentRadioChanel(8);
         // проверяем будет ли 8
