@@ -10,6 +10,17 @@ public class Radio {
     private int minVolume = 0;
     private boolean on;
 
+    // конструктор на изменение в объектах
+    public Radio(int maxRadioChanel, int maxVolume) {
+        this.maxRadioChanel = maxRadioChanel;
+        this.maxVolume = maxVolume;
+    }
+
+    // конструктор общий, который берёт дефолтные параметры
+    public Radio() {
+    }
+
+    // геттеры и сеттеры
     public String getName() {
         return name;
     }
