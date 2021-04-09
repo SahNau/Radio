@@ -1,26 +1,22 @@
 package homework.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Radio {
     private String name;
     private int currentRadioChanel;
-    private int maxRadioChanel = 9;
-    private int minRadioChanel = 0;
+    private int maxRadioChanel;
+    private int minRadioChanel;
     private int currentVolume;
-    private int maxVolume = 10;
-    private int minVolume = 0;
+    private int maxVolume;
+    private int minVolume;
     private boolean on;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getCurrentRadioChanel() {
-        return currentRadioChanel;
-    }
 
     // настройка канала по дефолту
     public void setCurrentRadioChanel(int currentRadioChanel) {
@@ -33,26 +29,6 @@ public class Radio {
         this.currentRadioChanel = currentRadioChanel;
     }
 
-    public int getMaxRadioChanel() {
-        return maxRadioChanel;
-    }
-
-    public void setMaxRadioChanel(int maxRadioChanel) {
-        this.maxRadioChanel = maxRadioChanel;
-    }
-
-    public int getMinRadioChanel() {
-        return minRadioChanel;
-    }
-
-    public void setMinRadioChanel(int minRadioChanel) {
-        this.minRadioChanel = minRadioChanel;
-    }
-
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
     public void setCurrentVolume(int currentVolume) {
         if (currentVolume > maxVolume) {
             return;
@@ -63,29 +39,6 @@ public class Radio {
         this.currentVolume = currentVolume;
     }
 
-    public int getMaxVolume() {
-        return maxVolume;
-    }
-
-    public void setMaxVolume(int maxVolume) {
-        this.maxVolume = maxVolume;
-    }
-
-    public int getMinVolume() {
-        return minVolume;
-    }
-
-    public void setMinVolume(int minVolume) {
-        this.minVolume = minVolume;
-    }
-
-    public boolean isOn() {
-        return on;
-    }
-
-    public void setOn(boolean on) {
-        this.on = on;
-    }
 
     // настройка переключения канала вперёд
     public void pressNextChanel() {
@@ -115,6 +68,8 @@ public class Radio {
         setCurrentVolume(currentVolume - 1);
     }
 }
+
+
 
 
 
